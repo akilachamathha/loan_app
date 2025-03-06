@@ -7,21 +7,21 @@ st.title('Loan Prediction App')
 st.write('Welcome to the Loan Prediction App. Please enter the details to get the predicted loan amount')
 
 # Get the user input
-gross_income = st.number_input('Annual GrossIncome (USD)', 0.00, help='Enter your Annual Gross Income')
-taxable_income = st.number_input('Annual TaxableIncome (USD)', 0.00, help='Enter your Annual Taxable Income')
-nontaxable_income = st.number_input('Annual NontaxableIncome (USD)', 0.00, help='Enter your Annual Nontaxable Income')
-total_deduction = st.number_input('Annual TotalDeduction (USD)', 0.00, help='Enter your Annual Total Deduction')
-withholding_tax = st.number_input('Annual WithholdingTax (USD)', 0.00, help='Enter your Annual Withholding Tax')
-net_worth = st.number_input('NetWorth (USD)', 0.00, help='Enter your Annual Net Worth')
-previous_loan_amount = st.number_input('PreviousLoanAmount (USD)', 0.00, help='Enter the Previous Loan Amount')
+monthly_gross_income = st.number_input('Monthly GrossIncome (LKR)', 0.00, help='Enter your Monthly Gross Income')
+taxable_income = st.number_input('Monthly TaxableIncome (LKR)', 0.00, help='Enter your Monthly Taxable Income')
+nontaxable_income = st.number_input('Monthly NontaxableIncome (LKR)', 0.00, help='Enter your Monthly Nontaxable Income')
+total_deduction = st.number_input('Monthly TotalDeduction (LKR)', 0.00, help='Enter your Monthly Total Deduction')
+withholding_tax = st.number_input('Monthly WithholdingTax (LKR)', 0.00, help='Enter your Monthly Withholding Tax')
+net_worth = st.number_input('NetWorth (LKR)', 0.00, help='Enter your Net Worth')
+previous_loan_amount = st.number_input('PreviousLoanAmount (LKR)', 0.00, help='Enter the Previous Loan Amount')
 repayment_years = st.number_input('RepaymentYears (Years)', 0, help='Enter the Repayment Years')
 loan_interest = st.number_input('LoanInterest (%)', 0.00, 100.00, help='Enter the Loan Interest Rate')
 
-monthly_rate = gross_income / 12
-net_pay = gross_income - withholding_tax - total_deduction
+gross_income = monthly_gross_income * 12
+net_pay = monthly_gross_income - withholding_tax - total_deduction
 
 
-entered_data = np.array([[gross_income, monthly_rate, taxable_income, nontaxable_income, total_deduction, withholding_tax, net_pay, net_worth, previous_loan_amount, repayment_years, loan_interest]]) 
+entered_data = np.array([[gross_income, monthly_gross_income, taxable_income, nontaxable_income, total_deduction, withholding_tax, net_pay, net_worth, previous_loan_amount, repayment_years, loan_interest]]) 
 
 if(st.button('Predict')):
     if(gross_income<=0 or net_worth<=0):
