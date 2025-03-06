@@ -22,7 +22,17 @@ net_pay = monthly_gross_income - withholding_tax - total_deduction
 
 usd_rate = 290 # 1 USD = 290 LKR
 
-entered_data = np.array([[gross_income/usd_rate, monthly_gross_income/usd_rate, taxable_income/usd_rate, nontaxable_income/usd_rate, total_deduction/usd_rate, withholding_tax/usd_rate, net_pay/usd_rate, net_worth/usd_rate, previous_loan_amount/usd_rate, repayment_years, loan_interest]])
+gross_income = gross_income/usd_rate
+monthly_gross_income = monthly_gross_income/usd_rate
+taxable_income = taxable_income/usd_rate
+nontaxable_income = nontaxable_income/usd_rate
+total_deduction = total_deduction/usd_rate
+withholding_tax = withholding_tax/usd_rate
+net_pay = net_pay/usd_rate
+net_worth = net_worth/usd_rate
+previous_loan_amount = previous_loan_amount/usd_rate
+
+entered_data = np.array([[gross_income, monthly_gross_income, taxable_income, nontaxable_income, total_deduction, withholding_tax, net_pay, net_worth, previous_loan_amount, repayment_years, loan_interest]])
 
 if(st.button('Predict')):
     if(gross_income<=0 or net_worth<=0):
@@ -30,10 +40,6 @@ if(st.button('Predict')):
     else:
         # Load the trained model
         model = tf.keras.models.load_model("model.keras")
-
-        # Load the saved scalers
-        scaler_x = joblib.load("scaler_x.pkl")
-        scaler_y = joblib.load("scaler_y.pkl")
 
         # Load the saved scalers
         scaler_x = joblib.load("scaler_x.pkl")
@@ -49,5 +55,5 @@ if(st.button('Predict')):
         prediction_original = scaler_y.inverse_transform(prediction_scaled)
 
         # Display the predicted loan amount
-        st.write('The predicted loan amount is:', prediction_original[0][0])
-        print("Prediction:", prediction_original[0][0])
+        st.write('The predicted loan amount is:', prediction_original[0][0]*usd_rate, 'LKR')
+        print("Prediction USD:", prediction_original[0][0])
