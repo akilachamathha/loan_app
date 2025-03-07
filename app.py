@@ -24,26 +24,26 @@ net_pay = monthly_gross_income - withholding_tax - total_deduction
 entered_data = np.array([[gross_income, monthly_gross_income, taxable_income, nontaxable_income, total_deduction, withholding_tax, net_pay, net_worth, previous_loan_amount, loan_duration, payment_history, loan_interest]])
 
 
-if(st.button('Predict')):
-    if(gross_income<=0 or net_worth<=0):
-        st.error('Please enter valid values. Gross Income and Net Worth should be greater than 0')
-    else:
-        # Load the trained model
-        model = tf.keras.models.load_model("model.keras")
+# if(st.button('Predict')):
+#     if(gross_income<=0 or net_worth<=0):
+#         st.error('Please enter valid values. Gross Income and Net Worth should be greater than 0')
+#     else:
+#         # Load the trained model
+#         model = tf.keras.models.load_model("model.keras")
 
-        # Load the saved scalers
-        scaler_x = joblib.load("scaler_x.pkl")
-        scaler_y = joblib.load("scaler_y.pkl")
+#         # Load the saved scalers
+#         scaler_x = joblib.load("scaler_x.pkl")
+#         scaler_y = joblib.load("scaler_y.pkl")
 
-        # Scale the input data
-        entered_data_scaled = scaler_x.transform(entered_data)
+#         # Scale the input data
+#         entered_data_scaled = scaler_x.transform(entered_data)
 
-        # Get predictions from the model
-        prediction_scaled = model.predict(entered_data_scaled)
+#         # Get predictions from the model
+#         prediction_scaled = model.predict(entered_data_scaled)
 
-        # Convert prediction back to original scale
-        prediction_original = scaler_y.inverse_transform(prediction_scaled)
+#         # Convert prediction back to original scale
+#         prediction_original = scaler_y.inverse_transform(prediction_scaled)
 
-        # Display the predicted loan amount
-        st.write('The predicted loan amount is:', prediction_original[0][0], 'LKR')
-        print("Prediction USD:", prediction_original[0][0])
+#         # Display the predicted loan amount
+#         st.write('The predicted loan amount is:', prediction_original[0][0], 'LKR')
+#         print("Prediction USD:", prediction_original[0][0])
